@@ -9,13 +9,13 @@ const Login = () => {
                     <h1 className='text-center'>Login</h1>
                     <form>
                         <div className="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                            <label for="email">Email address</label>
+                            <input type="email" name='email' className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" />
                             <small id="emailHelp" className="form-text text-muted">We'll never share your email.</small>
                         </div>
                         <div className="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                            <label for="password">Password</label>
+                            <input type="password" name='password' className="form-control" id="password" placeholder="Password" />
                         </div>
                         <div className='d-grid mt-3'>
                             <button type="submit" className="btn btn-primary">Submit</button>
