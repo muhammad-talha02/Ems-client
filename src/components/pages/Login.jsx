@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import axios from "axios"
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const [form, setForm] = useState({
         email: '',
         password: ""
     });
-const [error, setError] = useState("")
+const [error, setError] = useState("");
+
+const navigate = useNavigate()
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value })
@@ -18,16 +21,17 @@ const [error, setError] = useState("")
         else{
 
             axios.post("http://127.0.0.1:8000/login", form).then((response) => {
-                console.log("object")
                 console.log(response)
                 if(response.data.Status === 'Error'){
                     setError(response.data.Error)
                 }
                 else{
                     setError("");
+                    navigate("/")
                 }
             }).catch((error) => {
                 console.log(error);
+                setError(response.data.Error)
             })
         }
     }
@@ -40,12 +44,12 @@ const [error, setError] = useState("")
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <label htmlFor="email">Email address</label>
-                                <input type="email" name='email' className="form-control" value={form.email} id="email" onChange={handleChange} aria-describedby="emailHelp" placeholder="Enter email" />
+                                <input type="email" name='email' className="form-control" id="email" onChange={handleChange} aria-describedby="emailHelp" placeholder="Enter email" />
                                 <small id="emailHelp" className="form-text text-muted">We'll never share your email.</small>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="password">Password</label>
-                                <input type="password" name='password' value={form.password} className="form-control" id="password" onChange={handleChange} placeholder="Password" />
+                                <input type="password" name='password' className="form-control" id="password" onChange={handleChange} placeholder="Password" />
                             </div>
                             <div className='d-grid mt-3'>
                                 <button className="btn btn-primary">Submit</button>
