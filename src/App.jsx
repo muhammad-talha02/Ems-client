@@ -8,7 +8,8 @@ import Dashboard from './pages/Dashboard'
 import Employee from './pages/admin/Employee'
 import Profile from './pages/admin/Profile'
 import Home from './pages/admin/Home'
-import AddEmployee from './components/AddEmployee'
+import AddEmployee from './pages/admin/employee/AddEmployee'
+import EditEmployee from './pages/admin/employee/EditEmployee'
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
           <Route path='/employee' element={<Employee />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/employee/create' element={<AddEmployee/>} />
+          <Route path='/employee/edit/:id' element={<EditEmployee/>} />
         </Route>
         <Route path='/login' element={<Login />} />
       </Routes>

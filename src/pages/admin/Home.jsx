@@ -26,7 +26,7 @@ const Home = () => {
       <div className="col-lg-10 col-12 my-2 mx-auto">
 
   
-      <table class="table">
+      <table className="table">
   <thead>
     <tr>
       <th scope="col">Name</th>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const AddEmployee = () => {
   const [employee, setEmployee] = useState({
     name: "",
@@ -9,12 +10,13 @@ const AddEmployee = () => {
     image: {},
     salary:""
   });
-  console.log(employee)
+const navigate = useNavigate()
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee({ ...employee, [name]: value })
   }
-  const handleSubmit = (e) => {
+
+    const handleSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData();
     formdata.append("name", employee.name);
@@ -23,10 +25,10 @@ const AddEmployee = () => {
     formdata.append("address", employee.address);
     formdata.append("salary", employee.salary);
     formdata.append("image", employee.image);
-    console.log(formdata)
-    console.log(employee)
     axios.post("http://localhost:8000/create", formdata).then((res) => {
-      console.log("res", res)
+      if (res.data.Status === 'Success') {
+        navigate("/employee")
+      }
     }).catch((err) => console.log(err))
   }
   return (

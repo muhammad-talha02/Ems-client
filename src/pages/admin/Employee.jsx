@@ -3,21 +3,28 @@ import { Link, Outlet } from 'react-router-dom'
 import { PlusCircleFill } from 'react-bootstrap-icons'
 import axios from 'axios';
 const Employee = () => {
-const [employees, setEmployees] = useState([])
+  const [employees, setEmployees] = useState([])
 
-  useEffect(()=>{
-console.log("useeffect");
-getAllEmployees()
+  useEffect(() => {
+    getAllEmployees()
   }, []);
 
-  const getAllEmployees = ()=>{
-    axios.get("http://localhost:8000/employees").then((res)=>{
-      if(res.data.Status === 'Success'){
-
+  const getAllEmployees = () => {
+    axios.get("http://localhost:8000/employees").then((res) => {
+      if (res.data.Status === 'Success') {
         setEmployees(res.data.result)
-        console.log(res)
       }
-    }).catch((err)=> console.log(err))
+    }).catch((err) => console.log(err))
+  }
+
+
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:8000/employee/${id}`).then((res) => {
+      console.log(res)
+      if (res.data.Status === 'Success') {
+        getAllEmployees()
+      }
+    }).catch((err) => console.log(err))
   }
   return (
     <>
@@ -28,7 +35,7 @@ getAllEmployees()
           <div className="col-lg-10 col-12 my-2 mx-auto">
 
 
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th scope="col">Image</th>
@@ -40,29 +47,28 @@ getAllEmployees()
                 </tr>
               </thead>
               <tbody>
-              {
-               employees.length > 0 ? employees.map(emp=>{
-                  return <tr key={emp.id}>
-                    <td>
-                      <img className='emp-img' src={`http://localhost:8000/images/${emp.image}`} alt="" />
-                    </td>
-                    <td>{emp.name}</td>
-                    <td>{emp.email}</td>
-                    <td>{emp.address}</td>
-                    <td>{emp.salary}</td>
-                    <td>
-                    <button className='btn btn-primary btn-sm me-2'>Edit</button>
-                    <button className='btn btn-danger btn-sm'>Delete</button>
-                  </td>
-                  </tr>
-                }) : <h4 colspan="4" className='text-center'>Not Found</h4>
-              }
+                {
+                  employees.length > 0 ? employees.map(emp => {
+                    return <tr key={emp.id}>
+                      <td>
+                        <img className='emp-img' src={`http://localhost:8000/images/${emp.image}`} alt="" />
+                      </td>
+                      <td>{emp.name}</td>
+                      <td>{emp.email}</td>
+                      <td>{emp.address}</td>
+                      <td>{emp.salary}</td>
+                      <td>
+                        <Link to={`/employee/edit/${emp.id}`} className='btn btn-primary btn-sm me-2'>Edit</Link>
+                        <button onClick={() => handleDelete(emp.id)} className='btn btn-danger btn-sm'>Delete</button>
+                      </td>
+                    </tr>
+                  }) : <tr><td colSpan="6" className='text-center fw-bold'>Not Found</td></tr>
+                }
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <Outlet />
     </>
   )
 }
