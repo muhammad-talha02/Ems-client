@@ -2,6 +2,7 @@ import React from 'react'
 import Login from './pages/Login'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
+import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Dashboard from './pages/Dashboard'
 import Employee from './pages/admin/Employee'

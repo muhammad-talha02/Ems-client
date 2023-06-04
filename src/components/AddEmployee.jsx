@@ -6,7 +6,8 @@ const AddEmployee = () => {
     email: "",
     password: "",
     address: "",
-    image: {}
+    image: {},
+    salary:""
   });
   console.log(employee)
   const handleChange = (e) => {
@@ -20,6 +21,7 @@ const AddEmployee = () => {
     formdata.append("email", employee.email);
     formdata.append("password", employee.password);
     formdata.append("address", employee.address);
+    formdata.append("salary", employee.salary);
     formdata.append("image", employee.image);
     console.log(formdata)
     console.log(employee)
@@ -44,6 +46,10 @@ const AddEmployee = () => {
             <div className="mb-3">
               <label htmlFor="password" className="form-label">Password</label>
               <input type="password" className="form-control" name='password' id="password" onChange={handleChange} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="salary" className="form-label">Salary</label>
+              <input type="number" className="form-control" name='salary' id="salary" onChange={handleChange} placeholder='Enter Salary' />
             </div>
             <div className="mb-3">
               <label htmlFor="address" className="form-label">Address</label>
